@@ -112,17 +112,18 @@ public class Appt implements  Comparable<Appt>{
     private void isValid() {
     	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth-1);
     				
-    	if(startHour<0 || startHour>23)
+    	if(startHour<=0 || startHour>=23)
     		this.valid=false;
+//checks to see if hour is greater than 24 or less than 0, if this is the case then the appointment is non-valid. I will introduce an error where if it is =< 0 OR >= 23.
     	else
-        	if(startMinute<0 || startMinute>59)
-        		this.valid=false;
+        	if(startMinute <=0 || startMinute >= 59)
+        		this.valid=false;//Added error <= and >= now it will be false if minutes are 0 or 59 (which is technically supposed to work will now be false)
         	else
-            	if(startDay<1 || startDay>NumDaysInMonth)
-            		this.valid=false;
+            	if(startDay <= 1 || startDay >= NumDaysInMonth)
+            		this.valid=false;//once again when the start day is equal to one or the ending day of the month you can no longer set an appointment because of the bug in isValid incorrect.
             	else
-                	if(startMonth<1 || startMonth>12)
-                		this.valid=false;
+                	if(startMonth<=1 || startMonth>=12)
+                		this.valid=false;//introduced <= & >= logic errors that makes it not possible for the Calendar app to not be able to set appointments on January or December.
                 	else
                 		this.valid=true;
     }

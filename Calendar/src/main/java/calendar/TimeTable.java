@@ -49,8 +49,8 @@ public class TimeTable {
 	            nextDay.add(nextDay.DAY_OF_MONTH, 1);
 	        }
 	        
-	        //Retrieve the appts - <appt> 
-		for (int i = 0; i < appts.size(); i++) {
+	        //Retrieve the appts - <appt> ----------------//introduce an error: Make i = 1 instead of 0, this makes num of appts inaccurate and wrong 
+		for (int i = 1; i < appts.size(); i++) {
 			Appt appt=appts.get(i);
 			if(!appt.getValid()) continue;
 			// Figure out which days the appointment occurs on
@@ -60,8 +60,7 @@ public class TimeTable {
 			// For each day in the list, calculate the difference between the
 			// first day and the day of occurrence and add the appointment to
 			// the correct CalDay
-			int daysDifference = 0;
-			nextDay = (GregorianCalendar) firstDay.clone();
+			int daysDifference = 1; //--------------------------REPLACED 0 WITH 1, ERROR: AN EXTRA DAY DIFFERENCE FROM CURRENT DAY AND APPT DAY.
 			Iterator<GregorianCalendar> itr = apptOccursOnDays.iterator();
 			while (itr.hasNext()) {
 				GregorianCalendar apptOccursOn = (GregorianCalendar) itr.next();
@@ -106,10 +105,10 @@ public class TimeTable {
 	            return result;
 	        }
 	        
-	            
+	            //--------------------ERROR: i=0 is now i=1, now the number of reoccurences are now incorrect
 
 	            //Make sure that there is a limited number of recurrences
-	            for (int i = 0; i < appt.getRecurNumber()+1; i++) {
+	            for (int i = 1; i < appt.getRecurNumber()+1; i++) {
 	                
 	                //Add the day of occurrence to the list if it is after the first day
 	                if (!occurrenceDay.before(firstDay)) {
@@ -159,7 +158,10 @@ public class TimeTable {
 	                
 	                //The user did specify weekly recurrence, so increment the
 	                //day until it falls on a weekday the user specified
-	                for (int k = 0; k < 7; k++) {
+	                
+	                
+	                //----------------------ERROR: MADE K=1 INSTEAD OF K=0, NOW THE REOCCURENCES WILL BE INCORRECT FOR NEXT APPT OCCURENCE PER WEEK
+	                for (int k = 1; k < 7; k++) {
 	                    nextDay.add(nextDay.DAY_OF_MONTH, 1);
 	                    int newDayOfWeek = nextDay.get(nextDay.DAY_OF_WEEK);
 	                

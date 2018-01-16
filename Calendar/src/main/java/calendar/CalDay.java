@@ -70,9 +70,14 @@ public class CalDay {
 	 * the appointment actually occurs on this day. This is so the recurring
 	 * appointments can be added. The appointment can also be added twice.
 	 */
+
+
+
+
+	//Add Apt error: i=1 makes it always have one less room for the apt size.
 	public void addAppt(Appt appt) {
 		if (appt.getValid()) {
-			for (int i = 0; i < getAppts().size(); i++) {
+			for (int i = 1; i < getAppts().size(); i++) {
 				//Put the appointment in the correct order - finish this
 				if (((Appt)getAppts().get(i)).getStartHour() >
 										appt.getStartHour()) {
