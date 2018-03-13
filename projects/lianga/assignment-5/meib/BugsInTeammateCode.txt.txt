@@ -1,0 +1,47 @@
+    
+BUG 1
+private void isValid() {
+    	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth-1);
+
+    	 //if(startHour<0 || startHour>23)<------------------Example of how the bug would be FIXED.
+    	if(startHour<0 || startHour>24) <-------------------------------This is where the bug is found,
+									there is no such thing as 24 hours 
+									when making an appointment. 
+									Logically, we should only accept 0-23 hours.
+    		this.valid=false;
+    	else
+        	if(startMinute<0 || startMinute>59)
+        		this.valid=false;
+        	else
+            	if(startDay<1 || startDay>NumDaysInMonth)
+            		this.valid=false;
+            	else
+                	if(startMonth<1 || startMonth>12)
+                		this.valid=false;
+                	else
+                		this.valid=true;
+    }
+
+
+
+
+
+BUG 2
+public String toString() {
+	     StringBuilder sb = new StringBuilder();
+
+	      //if (isValid()) { <------------Correct Code                    
+		if (!isValid()) { <-----------BUG Here
+			String todayDate = (getMonth()) + "/" + getDay() + "/" + getYear();
+			sb.append("\t --- " + todayDate + " --- \n");
+			sb.append(" --- -------- Appointments ------------ --- \n");
+			Iterator<Appt> itr = this.appts.iterator();
+		    while(itr.hasNext()) {
+		         Object element = itr.next();
+		         
+		         sb.append(element + " ");
+		      }
+		  
+//			sb.append(this.appts);
+			sb.append("\n");
+		}
